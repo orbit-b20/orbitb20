@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orbit B20 | Built Natively on Base</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        baseBlue: '#0052FF',
+                        baseDark: '#0A0E27',
+                        orbitIndigo: '#4F46E5',
+                        orbitLight: '#E0E7FF',
+                        statusYellow: '#FBBF24',
+                        statusGreen: '#10B981',
+                        statusBlue: '#3B82F6',
+                        statusPurple: '#8B5CF6',
+                        textMuted: '#64748B',
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .bg-gradient-orbit {
+                background: linear-gradient(135deg, #0A0E27 0%, #1E1B4B 40%, #0052FF 100%);
+            }
+            .text-shadow {
+                text-shadow: 0 2px 15px rgba(0, 82, 255, 0.4);
+            }
+            .glow {
+                box-shadow: 0 0 25px rgba(0, 82, 255, 0.35);
+            }
+            .scroll-fade {
+                transition: all 0.3s ease;
+            }
+        }
+    </style>
+</head>
+<body class="font-inter bg-gray-50 text-gray-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-md fixed w-full z-50 scroll-fade">
+        <div class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-11 h-11 rounded-full bg-baseBlue flex items-center justify-center text-white font-bold text-xl">O</div>
+                <span class="text-xl md:text-2xl font-bold text-baseDark">Orbit B20</span>
+            </div>
+            <div class="hidden md:flex gap-6 items-center">
+                <a href="#about" class="hover:text-baseBlue font-medium transition">About</a>
+                <a href="#standard" class="hover:text-baseBlue font-medium transition">B20 Standard</a>
+                <a href="#features" class="hover:text-baseBlue font-medium transition">Features</a>
+                <a href="#roadmap" class="hover:text-baseBlue font-medium transition">Roadmap</a>
+                <a href="#tokenomics" class="hover:text-baseBlue font-medium transition">Tokenomics</a>
+                <a href="#tech" class="hover:text-baseBlue font-medium transition">Tech Stack</a>
+                <a href="#status" class="hover:text-baseBlue font-medium transition">Status</a>
+                <a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="flex items-center gap-1.5 bg-gray-800 hover:bg-gray-900 text-white px-3 py-2 rounded-lg transition text-sm">
+                    <i class="fa fa-github"></i> GitHub
+                </a>
+                <a href="https://x.com/orbit_b20" target="_blank" class="flex items-center gap-1.5 bg-baseBlue hover:bg-blue-700 text-white px-3 py-2 rounded-lg transition text-sm">
+                    <i class="fa fa-twitter"></i> X
+                </a>
+            </div>
+            <button class="md:hidden text-2xl" id="menuBtn">
+                <i class="fa fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="fixed inset-0 bg-black/50 z-40 hidden" id="menuOverlay"></div>
+    <div class="fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 transform translate-x-full transition-transform duration-300" id="mobileMenu">
+        <div class="p-4 flex justify-between items-center border-b">
+            <span class="font-bold text-lg">Menu</span>
+            <button id="closeMenu"><i class="fa fa-times text-xl"></i></button>
+        </div>
+        <div class="p-4 flex flex-col gap-3 mt-2">
+            <a href="#about" class="hover:text-baseBlue font-medium transition py-1">About</a>
+            <a href="#standard" class="hover:text-baseBlue font-medium transition py-1">B20 Standard</a>
+            <a href="#features" class="hover:text-baseBlue font-medium transition py-1">Features</a>
+            <a href="#roadmap" class="hover:text-baseBlue font-medium transition py-1">Roadmap</a>
+            <a href="#tokenomics" class="hover:text-baseBlue font-medium transition py-1">Tokenomics</a>
+            <a href="#tech" class="hover:text-baseBlue font-medium transition py-1">Tech Stack</a>
+            <a href="#status" class="hover:text-baseBlue font-medium transition py-1">Status</a>
+            <a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="flex items-center gap-2 bg-gray-800 text-white px-3 py-2 rounded-lg mt-2">
+                <i class="fa fa-github"></i> GitHub
+            </a>
+            <a href="https://x.com/orbit_b20" target="_blank" class="flex items-center gap-2 bg-baseBlue text-white px-3 py-2 rounded-lg mt-2">
+                <i class="fa fa-twitter"></i> X
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="bg-gradient-orbit min-h-screen pt-36 pb-24 flex items-center">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h1 class="text-4xl md:text-7xl font-bold text-white mb-6 text-shadow">Orbit B20</h1>
+            <p class="text-xl md:text-2xl text-blue-100 max-w-5xl mx-auto mb-6">Next-Generation Protocol & Ecosystem Built Natively for the Base Network</p>
+            <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-6 py-2.5 rounded-full border border-white/20 mb-12">
+                <span class="w-3 h-3 rounded-full bg-statusYellow animate-pulse"></span>
+                <span class="text-white font-medium">Official Status: Phase 2 In Progress | Preparing for Token Launch</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-5">
+                <a href="#about" class="bg-white text-baseBlue font-semibold px-10 py-4 rounded-lg hover:bg-gray-100 transition shadow-lg glow text-lg">Explore Orbit B20</a>
+                <a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="bg-orbitIndigo text-white font-semibold px-10 py-4 rounded-lg hover:bg-indigo-700 transition shadow-lg flex items-center gap-2 text-lg">
+                    <i class="fa fa-github fa-lg"></i> View Source Code
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-14 text-baseDark">What is Orbit B20?</h2>
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-lg text-gray-700 mb-5 leading-relaxed">
+                        Orbit B20 is a specialized, open-source protocol hub and ecosystem built exclusively for the @Base network — the secure, low-cost, and fast Ethereum Layer 2 developed by Coinbase. We are building the core infrastructure required to fully support, integrate, and scale the upcoming B20 token standard.
+                    </p>
+                    <p class="text-lg text-gray-700 mb-5 leading-relaxed">
+                        Our goal is to become the leading gateway for developers and users to interact with B20-based assets, services, and applications. We are not just a protocol — we are building a complete environment where innovation can grow safely and efficiently.
+                    </p>
+                    <p class="text-base text-gray-600 italic border-l-4 border-baseBlue pl-4 py-2">
+                        All development is transparent and open-source. Follow every update, commit, and improvement directly on our GitHub repository.
+                    </p>
+                </div>
+                <div class="bg-gradient-to-br from-gray-50 to-orbitLight p-8 rounded-2xl shadow-md border border-blue-100">
+                    <h3 class="text-2xl font-semibold mb-6 text-baseDark">Core Objectives</h3>
+                    <ul class="space-y-4 text-gray-700">
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-baseBlue mt-1 text-xl"></i>
+                            <span>Establish the primary infrastructure layer for the B20 standard on Base</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-baseBlue mt-1 text-xl"></i>
+                            <span>Launch our native utility token to power the ecosystem</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-baseBlue mt-1 text-xl"></i>
+                            <span>Enable seamless creation, transfer, and management of B20-compliant assets</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-baseBlue mt-1 text-xl"></i>
+                            <span>Provide developers with ready-to-use tools and documentation</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa fa-check-circle text-baseBlue mt-1 text-xl"></i>
+                            <span>Ensure low fees, high security, and long-term sustainability</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- B20 Standard Section -->
+    <section id="standard" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-baseDark">Understanding the B20 Standard</h2>
+            <div class="max-w-4xl mx-auto bg-white p-8 md:p-10 rounded-xl shadow-md border border-gray-100">
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    The B20 standard is Base’s upcoming native token specification, designed to improve upon existing standards like ERC-20. It introduces new features, better scalability, and deeper integration with the Base ecosystem, making it ideal for DeFi, NFTs, real-world assets, and large-scale applications.
+                </p>
+                <h3 class="text-xl font-semibold mb-4 text-baseDark">Key Improvements:</h3>
+                <div class="grid sm:grid-cols-2 gap-5 mb-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fa fa-cogs text-orbitIndigo text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-baseDark">Enhanced Functionality</h4>
+                            <p class="text-gray-600">Built-in support for metadata, permissions, and advanced logic.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa fa-bolt text-orbitIndigo text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-baseDark">Lower Gas Costs</h4>
+                            <p class="text-gray-600">Optimized code reduces transaction fees significantly.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa fa-shield text-orbitIndigo text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-baseDark">Better Security</h4>
+                            <p class="text-gray-600">Standardized patterns reduce common vulnerabilities.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <i class="fa fa-link text-orbitIndigo text-xl mt-1"></i>
+                        <div>
+                            <h4 class="font-semibold text-baseDark">Native Base Integration</h4>
+                            <p class="text-gray-600">Works seamlessly with Base bridges, wallets, and tools.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-baseDark">Core Features of Orbit B20</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-baseBlue">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">B20 Native Architecture</h3>
+                    <p class="text-gray-700 leading-relaxed">Built entirely from scratch following B20 specifications. No legacy code — 100% optimized for performance and compatibility.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-orbitIndigo">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">Utility & Governance Token</h3>
+                    <p class="text-gray-700 leading-relaxed">Our native token will be used for fees, staking, rewards, and voting on future development decisions of the ecosystem.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-green-500">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">Open Source & Auditable</h3>
+                    <p class="text-gray-700 leading-relaxed">All code is public, documented, and available on GitHub. Anyone can review, audit, or contribute to ensure trust and transparency.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-purple-500">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">Developer Tools</h3>
+                    <p class="text-gray-700 leading-relaxed">We provide SDKs, templates, and full documentation to help developers build applications on top of Orbit B20 easily.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-cyan-500">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">Scalable & Low-Cost</h3>
+                    <p class="text-gray-700 leading-relaxed">Optimized for Base’s infrastructure, ensuring fast transaction confirmations and minimal fees even during high network usage.</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow border-t-4 border-amber-500">
+                    <h3 class="text-xl font-semibold text-baseDark mb-4">Community Driven</h3>
+                    <p class="text-gray-700 leading-relaxed">Decisions are made with the community in mind. We build for the users, not just for profit — ensuring long-term value for everyone.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🚀 UPDATED ROADMAP SECTION -->
+    <section id="roadmap" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-14 text-baseDark">Development Roadmap</h2>
+            <div class="max-w-4xl mx-auto relative">
+                <!-- Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-baseBlue/20 hidden md:block"></div>
+
+                <!-- PHASE 1: COMPLETED -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16">
+                    <div class="md:w-1/2 md:pr-10 text-right mb-6 md:mb-0">
+                        <h3 class="text-xl font-semibold text-baseDark">Phase 1: Foundation & Design</h3>
+                        <p class="text-gray-600 mt-2">Research, planning, and core setup completed.</p>
+                        <span class="text-sm text-statusGreen font-medium mt-2 inline-block bg-green-100 px-3 py-1 rounded-full">✅ Completed</span>
+                        <ul class="mt-4 text-sm text-gray-600 space-y-1 text-right">
+                            <li>• Full research of B20 standard specifications</li>
+                            <li>• Architecture and technical design finalized</li>
+                            <li>• Repository structure and documentation setup</li>
+                            <li>• Branding, website, and community channels launched</li>
+                            <li>• Smart contract base framework written</li>
+                        </ul>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-statusGreen flex items-center justify-center text-white z-10 shadow-lg text-xl font-bold">1</div>
+                    <div class="md:w-1/2 md:pl-10"></div>
+                </div>
+
+                <!-- PHASE 2: IN PROGRESS - TOKEN LAUNCH -->
+                <div class="relative flex flex-col md:flex-row items-center mb-16">
+                    <div class="md:w-1/2 md:pr-10"></div>
+                    <div class="w-12 h-12 rounded-full bg-statusBlue flex items-center justify-center text-white z-10 shadow-lg text-xl font-bold">2</div>
+                    <div class="md:w-1/2 md:pl-10 text-left mb-6 md:mb-0">
+                        <h3 class="text-xl font-semibold text-baseDark">Phase 2: Token & Ecosystem Launch</h3>
+                        <p class="text-gray-600 mt-2">Preparation and deployment of native token.</p>
+                        <span class="text-sm text-statusBlue font-medium mt-2 inline-block bg-blue-100 px-3 py-1 rounded-full">🔄 In Progress</span>
+                        <ul class="mt-4 text-sm text-gray-600 space-y-1 text-left">
+                            <li>• Finalization of tokenomics and supply model</li>
+                            <li>• Smart contract audit and security review</li>
+                            <li>• Integration with Base mainnet</li>
+                            <li>• Listing preparation and liquidity setup</li>
+                            <li>• Official token launch and distribution</li>
+                            <li>• Community reward programs activated</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- PHASE 3: FUTURE DEVELOPMENT -->
+                <div class="relative flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/2 md:pr-10 text-right mb-6 md:mb-0">
+                        <h3 class="text-xl font-semibold text-baseDark">Phase 3: Expansion & Growth</h3>
+                        <p class="text-gray-600 mt-2">Building out the full ecosystem and utilities.</p>
+                        <span class="text-sm text-statusPurple font-medium mt-2 inline-block bg-purple-100 px-3 py-1 rounded-full">⏳ Upcoming</span>
+                        <ul class="mt-4 text-sm text-gray-600 space-y-1 text-right">
+                            <li>• Launch of B20 token creation platform</li>
+                            <li>• Staking and yield farming features</li>
+                            <li>• Governance system implementation</li>
+                            <li>• Partnerships with DeFi projects on Base</li>
+                            <li>• Cross-chain bridge integration</li>
+                            <li>• Developer grant program opened</li>
+                            <li>• Marketing and global expansion</li>
+                        </ul>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-statusPurple flex items-center justify-center text-white z-10 shadow-lg text-xl font-bold">3</div>
+                    <div class="md:w-1/2 md:pl-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW SECTION: TOKENOMICS -->
+    <section id="tokenomics" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-baseDark">Tokenomics Overview</h2>
+            <div class="max-w-4xl mx-auto bg-gray-50 p-8 rounded-xl shadow-md">
+                <p class="text-gray-700 mb-8">The Orbit B20 token is designed to be sustainable, fair, and useful for all participants in the ecosystem.</p>
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="text-left">
+                        <h3 class="text-xl font-semibold mb-4 text-baseDark">Token Details</h3>
+                        <ul class="space-y-3 text-gray-700">
+                            <li><strong>Token Name:</strong> Orbit B20</li>
+                            <li><strong>Symbol:</strong> ORB</li>
+                            <li><strong>Network:</strong> Base</li>
+                            <li><strong>Standard:</strong> B20 (compatible with ERC-20)</li>
+                            <li><strong>Total Supply:</strong> 1,000,000,000 ORB</li>
+                            <li><strong>Utility:</strong> Fees, Staking, Governance, Rewards</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4 text-center text-baseDark">Supply Distribution</h3>
+                        <ul class="space-y-2 text-sm">
+                            <li class="flex justify-between"><span>Public Sale & Liquidity</span> <span>40%</span></li>
+                            <li class="flex justify-between"><span>Community & Rewards</span> <span>25%</span></li>
+                            <li class="flex justify-between"><span>Development & Team</span> <span>15%</span></li>
+                            <li class="flex justify-between"><span>Partnerships & Ecosystem</span> <span>12%</span></li>
+                            <li class="flex justify-between"><span>Reserve & Treasury</span> <span>8%</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-baseDark">Technology Stack</h2>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-semibold text-baseDark mb-2">Base Network</h3>
+                    <p class="text-gray-600">Primary deployment environment — secure, low-cost Ethereum Layer 2</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-semibold text-baseDark mb-2">Solidity</h3>
+                    <p class="text-gray-600">Smart contract language optimized for EVM-compatible chains</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-semibold text-baseDark mb-2">OpenZeppelin</h3>
+                    <p class="text-gray-600">Trusted library for secure, standardized contract components</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition">
+                    <h3 class="text-lg font-semibold text-baseDark mb-2">GitHub</h3>
+                    <p class="text-gray-600">Version control, issue tracking, and open-source collaboration</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Status Section -->
+    <section id="status" class="py-20 bg-white">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-10 text-baseDark">Current Status</h2>
+            <div class="max-w-3xl mx-auto bg-gradient-to-r from-white to-orbitLight p-8 md:p-10 rounded-xl border border-blue-200 shadow-md">
+                <div class="flex items-center justify-center gap-3 mb-6">
+                    <span class="w-4 h-4 rounded-full bg-statusBlue animate-pulse"></span>
+                    <h3 class="text-2xl font-semibold text-baseDark">Phase 2 In Progress</h3>
+                </div>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    We are currently finalizing all preparations for the launch of the ORB token. Contracts are being audited, and we are setting up liquidity pools to ensure a smooth launch. We remain fully aligned with the B20 standard specifications.
+                </p>
+                <div class="grid sm:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-baseDark">Repository Info</h4>
+                        <p class="text-gray-600 text-sm mt-1">7 Commits | 1 Branch | Public & Open Source</p>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm">
+                        <h4 class="font-semibold text-baseDark">Last Updated</h4>
+                        <p class="text-gray-600 text-sm mt-1">June 24, 2026</p>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-4 flex-wrap">
+                    <a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="inline-flex items-center gap-2 bg-gray-800 text-white px-6 py-3 rounded-lg hover:bg-gray-900 transition shadow-sm">
+                        <i class="fa fa-github fa-lg"></i> View Repository
+                    </a>
+                    <a href="https://x.com/orbit_b20" target="_blank" class="inline-flex items-center gap-2 bg-baseBlue text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition shadow-sm">
+                        <i class="fa fa-twitter fa-lg"></i> Follow Updates
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4 md:px-6 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 text-baseDark">Join Our Community</h2>
+            <p class="text-lg text-gray-700 max-w-3xl mx-auto mb-8">
+                Be part of the journey. Get early updates, participate in discussions, and earn rewards as we build the future of B20 on Base.
+            </p>
+            <div class="flex justify-center gap-6 flex-wrap">
+                <a href="https://x.com/orbit_b20" target="_blank" class="flex items-center gap-3 bg-black hover:bg-gray-900 text-white px-8 py-4 rounded-lg text-lg font-medium transition shadow-md">
+                    <i class="fa fa-twitter fa-2x"></i> Follow @orbit_b20
+                </a>
+                <a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="flex items-center gap-3 bg-gray-800 hover:bg-gray-900 text-white px-8 py-4 rounded-lg text-lg font-medium transition shadow-md">
+                    <i class="fa fa-github fa-2x"></i> Star on GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-baseDark text-gray-300 py-12">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="grid md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold text-white mb-4">Orbit B20</h3>
+                    <p class="text-gray-400 leading-relaxed">Next-generation protocol & ecosystem built natively for the Base network, supporting the B20 token standard.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#about" class="hover:text-baseBlue transition">About</a></li>
+                        <li><a href="#features" class="hover:text-baseBlue transition">Features</a></li>
+                        <li><a href="#roadmap" class="hover:text-baseBlue transition">Roadmap</a></li>
+                        <li><a href="#tokenomics" class="hover:text-baseBlue transition">Tokenomics</a></li>
+                        <li><a href="#status" class="hover:text-baseBlue transition">Status</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-4">Official Channels</h3>
+                    <ul class="space-y-2">
+                        <li><a href="https://github.com/orbitb20/orbit_b20" target="_blank" class="flex items-center gap-2 hover:text-baseBlue transition"><i class="fa fa-github"></i> GitHub Repository</a></li>
+                        <li><a href="https://x.com/orbit_b20" target="_blank" class="flex items-center gap-2 hover:text-baseBlue transition"><i class="fa fa-twitter"></i> X / Twitter: @orbit_b20</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-6 text-center">
+                <p class="text-sm text-gray-500">&copy; 2026 Orbit B20. All rights reserved. Built on Base Network.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu & Smooth Scroll Script -->
+    <script>
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenu = document.getElementById('closeMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuBtn.addEventListener('click', () => {
+            menuOverlay.classList.remove('hidden');
+            mobileMenu.classList.remove('translate-x-full');
+        });
+
+        function hideMenu() {
+            menuOverlay.classList.add('hidden');
+            mobileMenu.classList.add('translate-x-full');
+        }
+
+        closeMenu.addEventListener('click', hideMenu);
+        menuOverlay.addEventListener('click', hideMenu);
+        document.querySelectorAll('#mobileMenu a').forEach(link => link.addEventListener('click', hideMenu));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+
+</body>
+</html>
